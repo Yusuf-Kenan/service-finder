@@ -1,9 +1,11 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Footer = () => {
+  const categoriesState = useSelector((state) => state.categoriesState);
   return (
     <div>
-         <footer className="pt-4 my-md-5 pt-md-5 border-top">
+      <footer className="pt-4 my-md-5 pt-md-5 border-top">
         <div className="row">
           <div className="col-12 col-md">
             <img
@@ -14,42 +16,25 @@ const Footer = () => {
               height="45"
             />
             <small className="d-block mb-3 text-body-secondary">
-              © 2017 -Header 2023
+              © 2017 - 2023
             </small>
           </div>
           <div className="col-6 col-md">
-            <h5>Features</h5>
+            <h5>Categories</h5>
             <ul className="list-unstyled text-small">
-              <li className="mb-1">
-                <Link className="link-secondary text-decoration-none" to="#">
-                  Cool stuff
-                </Link>
-              </li>
-              <li className="mb-1">
-                <Link className="link-secondary text-decoration-none" to="#">
-                  Random feature
-                </Link>
-              </li>
-              <li className="mb-1">
-                <Link className="link-secondary text-decoration-none" to="#">
-                  Team feature
-                </Link>
-              </li>
-              <li className="mb-1">
-                <Link className="link-secondary text-decoration-none" to="#">
-                  Stuff for developers
-                </Link>
-              </li>
-              <li className="mb-1">
-                <Link className="link-secondary text-decoration-none" to="#">
-                  Another one
-                </Link>
-              </li>
-              <li className="mb-1">
-                <Link className="link-secondary text-decoration-none" to="#">
-                  Last time
-                </Link>
-              </li>
+              {categoriesState.categories.map((item, index) => {
+                if(index>=5) { return null};
+                return (
+                  <li key={index} className="mb-1">
+                    <Link
+                      className="link-secondary text-decoration-none"
+                      to={"/categories/" + item.slug}
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
           </div>
           <div className="col-6 col-md">
@@ -105,7 +90,7 @@ const Footer = () => {
         </div>
       </footer>
     </div>
-  )
-}
+  );
+};
 
-export default Footer
+export default Footer;

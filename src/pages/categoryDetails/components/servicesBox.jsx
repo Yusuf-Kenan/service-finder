@@ -2,28 +2,27 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export default function CategoryBox({ category }) {
+export default function ServicesBox(service) {
   return (
     <Card className="mb-4 rounded-3 shadow-sm border-primary">
       <Card.Header className="py-3 text-bg-primary border-primary">
-        <h4 className="my-0 fw-normal">{category.name}</h4>
+        <h4 className="my-0 fw-normal">{service.name}</h4>
       </Card.Header>
       <Card.Body>
         <img
-          src={category.image}
+          src="https://picsum.photos/200/300"
           alt="img card"
           className="mb-3"
-          onError={(event) =>
-            (event.target.src =
-              "https://api.adoptez1artisan.com/assets/images/no-image.png")
-          }
           style={{
             width: "100%",
             aspectRatio: "1.3",
             margin: "0px 0px 20px 0px",
           }}
         />
-        <Link to={"categories/"+category.slug} className="w-100 btn btn-primary">
+        <Link
+          to={"/services/" + service.slug}
+          className="w-100 btn btn-primary"
+        >
           Details
         </Link>
       </Card.Body>

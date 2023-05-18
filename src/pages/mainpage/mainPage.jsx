@@ -1,31 +1,13 @@
 import { Splide, SplideSlide } from "@splidejs/react-splide";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import CategoryBox from "./categoryBox";
+import { useSelector } from 'react-redux';
 
 const MainPage = () => {
-  const [categories, setCategories] = useState();
-  const [initialized, setInitialized] = useState(false);
+  const categoriesState=useSelector(state=>state.categoriesState)
+ 
 
-  useEffect(() => {
-    axios
-      .get(
-        "https://api.adoptez1artisan.com/public/categories/listMainCategories"
-      )
-      .then((res) => {
-        setCategories(res.data.data);
-      })
-      .catch((err) => {
-        console.log(err.data);
-        alert(err.data);
-      })
-      .finally(() => {
-        setInitialized(true);
-      });
-  }, []);
-
-  if (!initialized)
+  if (!categoriesState.initialized)
     return (
       <main>
         <Row className="mb-3 text-center">
@@ -61,7 +43,7 @@ const MainPage = () => {
       </Row>
 
       <Row className="row-cols-1 row-cols-md-3 mb-3 text-center">
-        {categories.map((item, index) => {
+        {categoriesState.categories.map((item, index) => {
           return (
             <Col key={index}>
               <CategoryBox category={item} />
